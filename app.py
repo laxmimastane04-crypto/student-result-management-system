@@ -74,6 +74,9 @@ def calculate_result(marks):
     return total, percentage, grade
 
 
+# Initialize the database when the Flask app is imported (works with Gunicorn/Render).
+init_db()
+
 @app.route("/")
 def index():
     conn = get_db()
