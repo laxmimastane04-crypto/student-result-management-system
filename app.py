@@ -340,8 +340,6 @@ def inject_year():
     return {"current_year": datetime.now().year}
 
 
-import os
-
 init_db()
 
 if __name__ == "__main__":
