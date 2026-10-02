@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% set editing = student is not none %}
+{% block title %}{{ "Edit Student" if editing else "Add Student" }}{% endblock %}
+{% block content %}
+<div class="form-card">
+    <h1>{{ "Edit Student" if editing else "Add Student" }}</h1>
+    <p>{{ "Update student details and marks." if editing else "Enter student details and marks." }}</p>
+
+    <form method="post">
+        <div class="form-grid">
+            <label>Roll Number
+                <input type="text" name="roll_no" required value="{{ student.roll_no if editing else '' }}">
+            </label>
+            <label>Student Name
+                <input type="text" name="name" required value="{{ student.name if editing else '' }}">
+            </label>
+            <label>Class
+                <input type="text" name="class_name" required value="{{ student.class_name if editing else '' }}" placeholder="e.g. BCA 2nd Year">
+            </label>
+        </div>
+
+        <h2>Subject Marks</h2>
+        <div class="marks-grid">
+        {% for subject in subjects %}
+            <label>{{ subject.name }}
+                <input type="number" name="marks_{{ subject.id }}" min="0" max="100" step="0.01"
+                       value="{{ existing_marks.get(subject.id, '') if editing else '' }}"
+                       placeholder="0 - 100">
+            </label>
+        {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <button class="btn primary" type="submit">{{ "Update Student" if editing else "Save Student" }}</button>
+            <a class="btn" href="{{ url_for('index') }}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
